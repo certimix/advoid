@@ -19,6 +19,7 @@
                             $nav = [
                                 'dashboard' => 'Painel',
                                 'processos.index' => 'Processos',
+                                'clientes.index' => 'Clientes',
                                 'atendimentos.index' => 'Atendimentos',
                                 'agenda.index' => 'Agenda',
                                 'financeiro.index' => 'Financeiro',

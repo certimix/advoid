@@ -65,3 +65,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/financeiro/novo', \App\Livewire\Financeiro\LancamentoForm::class)->name('financeiro.create');
     Route::get('/financeiro/{lancamento}/editar', \App\Livewire\Financeiro\LancamentoForm::class)->name('financeiro.edit');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/clientes', \App\Livewire\Clientes\ClienteIndex::class)->name('clientes.index');
+    Route::get('/clientes/novo', \App\Livewire\Clientes\ClienteForm::class)->name('clientes.create');
+    Route::get('/clientes/{cliente}/editar', \App\Livewire\Clientes\ClienteForm::class)->name('clientes.edit');
+    Route::get('/clientes/{cliente}', \App\Livewire\Clientes\ClienteShow::class)->name('clientes.show');
+});
