@@ -6,26 +6,6 @@
         <a href="{{ route('financeiro.index') }}" wire:navigate class="text-sm text-gray-500 hover:text-primary-600">← Voltar</a>
     </div>
 
-    {{-- Comprovante + IA --}}
-    <div class="rounded-xl border border-dashed border-primary-300 bg-primary-50/40 p-4 dark:border-primary-700 dark:bg-primary-900/10">
-        <label class="block cursor-pointer text-center">
-            <input type="file" wire:model="comprovante" accept="image/*,application/pdf" class="hidden">
-            <div class="py-2">
-                <div class="text-sm font-medium text-primary-700 dark:text-primary-300">
-                    @if ($iaDisponivel) Arraste o comprovante ou clique — a IA preenche @else Anexar comprovante @endif
-                </div>
-                <div class="text-xs text-gray-500">PDF, JPG ou PNG até 15MB @unless($iaDisponivel) · (leitura por IA desligada — configure AI_API_KEY) @endunless</div>
-            </div>
-        </label>
-        <div wire:loading wire:target="comprovante" class="text-center text-xs text-primary-600">Lendo comprovante...</div>
-        @if ($comprovante && ! $errors->has('comprovante'))
-            <div class="mt-1 text-center text-xs text-gray-500">✓ {{ $comprovante->getClientOriginalName() }}</div>
-        @endif
-        @error('comprovante') <div class="mt-1 text-center text-xs text-red-500">{{ $message }}</div> @enderror
-        @if ($iaMsg) <div class="mt-2 rounded bg-green-50 px-3 py-1.5 text-center text-xs text-green-700 dark:bg-green-900/30 dark:text-green-300">{{ $iaMsg }}</div> @endif
-        @if ($iaErro) <div class="mt-2 rounded bg-red-50 px-3 py-1.5 text-center text-xs text-red-700 dark:bg-red-900/30 dark:text-red-300">{{ $iaErro }}</div> @endif
-    </div>
-
     <form wire:submit="save" class="space-y-6 rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
         <div>
             <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo</label>

@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -34,3 +35,5 @@
     --color-accent-800: #115e59;
     --color-accent-900: #134e4a;
 }
+
+[x-cloak] { display: none !important; }
