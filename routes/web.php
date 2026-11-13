@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/processos', ProcessoIndex::class)->name('processos.index');
     Route::get('/processos/novo', ProcessoForm::class)->name('processos.create');
     Route::get('/processos/{processo}/editar', ProcessoForm::class)->name('processos.edit');
+    Route::get('/processos/kanban', \App\Livewire\Processos\ProcessoKanban::class)->name('processos.kanban');
     Route::get('/processos/{processo}', ProcessoShow::class)->name('processos.show');
 
     Route::get('/atendimentos', AtendimentoIndex::class)->name('atendimentos.index');
@@ -71,4 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/clientes/novo', \App\Livewire\Clientes\ClienteForm::class)->name('clientes.create');
     Route::get('/clientes/{cliente}/editar', \App\Livewire\Clientes\ClienteForm::class)->name('clientes.edit');
     Route::get('/clientes/{cliente}', \App\Livewire\Clientes\ClienteShow::class)->name('clientes.show');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dna', \App\Livewire\Dna\ModeloIndex::class)->name('dna.index');
+    Route::get('/dna/novo', \App\Livewire\Dna\ModeloForm::class)->name('dna.create');
+    Route::get('/dna/{modelo}/editar', \App\Livewire\Dna\ModeloForm::class)->name('dna.edit');
 });

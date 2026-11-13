@@ -19,9 +19,11 @@
                             $nav = [
                                 'dashboard' => 'Painel',
                                 'processos.index' => 'Processos',
+                                'processos.kanban' => 'Kanban',
                                 'clientes.index' => 'Clientes',
                                 'atendimentos.index' => 'Atendimentos',
                                 'agenda.index' => 'Agenda',
+                                'dna.index' => 'DNA',
                                 'financeiro.index' => 'Financeiro',
                             ];
                         @endphp
