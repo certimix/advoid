@@ -8,10 +8,13 @@
             <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">DNA Jurídico</h1>
             <p class="text-sm text-gray-500 dark:text-gray-400">Blocos e peças que definem o estilo e a argumentação do escritório.</p>
         </div>
+        <div class="flex gap-2">
+            <a href="{{ route('dna.gerar') }}" wire:navigate class="inline-flex items-center gap-2 rounded-lg border border-primary-500 px-4 py-2 text-sm font-medium text-primary-600 transition hover:bg-primary-50 dark:hover:bg-primary-900/30">✨ Gerar peça (IA)</a>
         <a href="{{ route('dna.create') }}" wire:navigate
            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-700">
             + Novo bloco
         </a>
+        </div>
     </div>
 
     {{-- Abas de categoria --}}

@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dna', \App\Livewire\Dna\ModeloIndex::class)->name('dna.index');
     Route::get('/dna/novo', \App\Livewire\Dna\ModeloForm::class)->name('dna.create');
+    Route::get('/dna/gerar', \App\Livewire\Dna\GerarPeca::class)->name('dna.gerar');
     Route::get('/dna/{modelo}/editar', \App\Livewire\Dna\ModeloForm::class)->name('dna.edit');
 });
 

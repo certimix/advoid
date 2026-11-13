@@ -6,13 +6,17 @@ use App\Models\CategoriaFinanceira;
 use App\Models\Cliente;
 use App\Models\LancamentoFinanceiro;
 use App\Models\Processo;
+use App\Services\Ai\AiService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('layouts.app')]
 class LancamentoForm extends Component
 {
+    use WithFileUploads;
+
     public ?LancamentoFinanceiro $lancamento = null;
 
     public string $tipo = 'receita';
@@ -26,8 +30,15 @@ class LancamentoForm extends Component
     public ?string $forma_pagamento = null;
     public ?string $observacoes = null;
 
+    public $comprovante = null;
+    public bool $iaDisponivel = false;
+    public ?string $iaMsg = null;
+    public ?string $iaErro = null;
+
     public function mount(?LancamentoFinanceiro $lancamento = null): void
     {
+        $this->iaDisponivel = app(AiService::class)->disponivel();
+
         if ($lancamento && $lancamento->exists) {
             abort_unless($lancamento->escritorio_id === Auth::user()->escritorio_id, 403);
             $this->lancamento = $lancamento;
@@ -38,6 +49,46 @@ class LancamentoForm extends Component
             $this->vencimento = optional($lancamento->vencimento)->format('Y-m-d');
         } else {
             $this->vencimento = now()->format('Y-m-d');
+        }
+    }
+
+    public function updatedComprovante(): void
+    {
+        $this->iaMsg = $this->iaErro = null;
+        $this->validateOnly('comprovante');
+
+        if (! $this->iaDisponivel) {
+            return;
+        }
+
+        $mime = $this->comprovante->getMimeType();
+        if (! str_starts_with((string) $mime, 'image/')) {
+            $this->iaMsg = 'Comprovante anexado. Leitura automática só funciona com imagem (JPG/PNG).';
+            return;
+        }
+
+        try {
+            $dados = app(AiService::class)->extrairComprovante($this->comprovante->getRealPath(), $mime);
+
+            if (! empty($dados['tipo']) && in_array($dados['tipo'], ['receita', 'despesa'], true)) {
+                $this->tipo = $dados['tipo'];
+            }
+            if (! empty($dados['descricao'])) {
+                $this->descricao = $dados['descricao'];
+            }
+            if (isset($dados['valor']) && is_numeric($dados['valor'])) {
+                $this->valor = (string) $dados['valor'];
+            }
+            if (! empty($dados['vencimento'])) {
+                $this->vencimento = $dados['vencimento'];
+            }
+            if (! empty($dados['forma_pagamento'])) {
+                $this->forma_pagamento = $dados['forma_pagamento'];
+            }
+
+            $this->iaMsg = 'Campos preenchidos a partir do comprovante — confira antes de salvar.';
+        } catch (\Throwable $e) {
+            $this->iaErro = 'Não consegui ler o comprovante automaticamente. Preencha manualmente.';
         }
     }
 
@@ -54,14 +105,20 @@ class LancamentoForm extends Component
             'status'          => ['required', 'string'],
             'forma_pagamento' => ['nullable', 'string', 'max:255'],
             'observacoes'     => ['nullable', 'string'],
+            'comprovante'     => ['nullable', 'file', 'max:15360'],
         ];
     }
 
     public function save()
     {
         $dados = $this->validate();
+        unset($dados['comprovante']);
         $dados['escritorio_id'] = Auth::user()->escritorio_id;
         $dados['responsavel_id'] = Auth::id();
+
+        if ($this->comprovante) {
+            $dados['comprovante_path'] = $this->comprovante->store('comprovantes', 'public');
+        }
 
         if ($this->lancamento) {
             $this->lancamento->update($dados);
