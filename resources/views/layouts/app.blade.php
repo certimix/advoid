@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="h-full bg-gray-50 text-gray-900 antialiased">
+<body class="h-full bg-[#f6f6f4] text-gray-900 antialiased">
 @php
     $nav = [
         ['dashboard', 'Painel', 'M2.25 12 12 3l9.75 9M4.5 10.5V20a1 1 0 0 0 1 1h4v-6h5v6h4a1 1 0 0 0 1-1v-9.5'],
@@ -33,9 +33,13 @@
         <aside x-cloak
                :class="open ? 'translate-x-0' : '-translate-x-full'"
                class="fixed inset-y-0 left-0 z-40 flex w-60 flex-col border-r border-gray-200 bg-white transition-transform md:translate-x-0">
-            <div class="flex h-16 items-center gap-2 border-b border-gray-100 px-5">
-                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-sm font-bold text-white">A</span>
-                <span class="text-lg font-semibold tracking-tight text-gray-900">Advoid</span>
+            <div class="flex h-16 items-center gap-2.5 border-b border-gray-100 px-5">
+                <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-700 text-white">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75v15.5M8.5 19.25h7M5 7h14M12 7 5 7m0 0-2.4 5.2a2.4 2.4 0 0 0 4.8 0L5 7Zm14 0-2.4 5.2a2.4 2.4 0 0 0 4.8 0L19 7Z" />
+                    </svg>
+                </span>
+                <span class="font-serif text-2xl font-semibold tracking-tight text-gray-900">Advoid</span>
             </div>
 
             <nav class="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">

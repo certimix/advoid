@@ -37,3 +37,16 @@
 }
 
 [x-cloak] { display: none !important; }
+
+@theme {
+    /* Serifa de "display" — gravidade de escritório jurídico */
+    --font-serif: Georgia, 'Times New Roman', Times, serif;
+}
+
+@layer base {
+    /* Títulos de página em serifa, sem precisar editar cada tela */
+    h1 {
+        font-family: var(--font-serif);
+        letter-spacing: -0.015em;
+    }
+}
