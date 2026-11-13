@@ -117,7 +117,7 @@ class ProcessoShow extends Component
     {
         $this->processo->load([
             'cliente', 'advogado', 'fase', 'partes', 'movimentacoes',
-            'prazos' => fn ($q) => $q->orderByRaw("FIELD(status,'pendente','atrasado','cumprido','cancelado')")->orderBy('data_prazo'),
+            'prazos' => fn ($q) => $q->orderByRaw("CASE status WHEN 'pendente' THEN 0 WHEN 'atrasado' THEN 1 WHEN 'cumprido' THEN 2 ELSE 3 END")->orderBy('data_prazo'),
             'lancamentos' => fn ($q) => $q->latest('vencimento'),
         ]);
 
