@@ -21,6 +21,7 @@
                                 'processos.index' => 'Processos',
                                 'atendimentos.index' => 'Atendimentos',
                                 'agenda.index' => 'Agenda',
+                                'financeiro.index' => 'Financeiro',
                             ];
                         @endphp
                         @foreach ($nav as $rota => $rotulo)

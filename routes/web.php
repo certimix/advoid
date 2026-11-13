@@ -59,3 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/agenda/novo', CompromissoForm::class)->name('agenda.create');
     Route::get('/agenda/{compromisso}/editar', CompromissoForm::class)->name('agenda.edit');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/financeiro', \App\Livewire\Financeiro\FinanceiroIndex::class)->name('financeiro.index');
+    Route::get('/financeiro/novo', \App\Livewire\Financeiro\LancamentoForm::class)->name('financeiro.create');
+    Route::get('/financeiro/{lancamento}/editar', \App\Livewire\Financeiro\LancamentoForm::class)->name('financeiro.edit');
+});
