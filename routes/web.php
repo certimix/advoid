@@ -79,3 +79,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/dna/novo', \App\Livewire\Dna\ModeloForm::class)->name('dna.create');
     Route::get('/dna/{modelo}/editar', \App\Livewire\Dna\ModeloForm::class)->name('dna.edit');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/publicacoes', \App\Livewire\Publicacoes\PublicacaoIndex::class)->name('publicacoes.index');
+    Route::get('/publicacoes/nova', \App\Livewire\Publicacoes\PublicacaoForm::class)->name('publicacoes.create');
+    Route::get('/publicacoes/{publicacao}/editar', \App\Livewire\Publicacoes\PublicacaoForm::class)->name('publicacoes.edit');
+
+    Route::get('/equipes', \App\Livewire\Equipes\EquipeIndex::class)->name('equipes.index');
+    Route::get('/equipes/nova', \App\Livewire\Equipes\EquipeForm::class)->name('equipes.create');
+    Route::get('/equipes/{equipe}/editar', \App\Livewire\Equipes\EquipeForm::class)->name('equipes.edit');
+
+    Route::get('/escritorio', \App\Livewire\Escritorio\EscritorioSettings::class)->name('escritorio.settings');
+});

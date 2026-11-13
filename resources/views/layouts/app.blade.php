@@ -24,6 +24,8 @@
                                 'atendimentos.index' => 'Atendimentos',
                                 'agenda.index' => 'Agenda',
                                 'dna.index' => 'DNA',
+                                'publicacoes.index' => 'Publicações',
+                                'equipes.index' => 'Equipes',
                                 'financeiro.index' => 'Financeiro',
                             ];
                         @endphp
@@ -38,6 +40,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="hidden text-sm text-gray-500 sm:inline dark:text-gray-400">{{ auth()->user()?->name }}</span>
+                    <a href="{{ route('escritorio.settings') }}" wire:navigate class="rounded-lg px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Escritório</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">Sair</button>
